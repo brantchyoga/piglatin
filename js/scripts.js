@@ -1,12 +1,7 @@
 var result = (function(sentence){
   var alphabet = ["b", "c", "d", "f", "g","h","j","k","l","m","n","p","q", "r", "s", "t", "v", "x", "z", "y", "w","a", "u", "o", "i", "e"];
   var consonant = ["b","c", "d", "f", "g","h","j","k","l","m","n","p","q", "r", "s", "t", "v", "x", "z", "y", "w"];
-  // if (["a", "u", "o", "i", "e"].indexOf(sentence[0] > -1){
-  //   return sentence = sentence + "way";
-  // }
-  // else {
-  //   for (var i = 0;, i<sentence.length; i++)
-  // }
+
 
   var blankTest = [];
   var vowels = ["a", "u", "o", "i", "e"];
@@ -16,6 +11,12 @@ var result = (function(sentence){
       for(var i=0;i<consonant.length;i++){
         if (word.charAt(0) === vowels[j]) {
           return blankTest.push(word + "ay");
+        } else if ((word.charAt(0)==="q")&&(word.charAt(1)==="u")) {
+            var slic = word.replace(word.charAt(0), "").replace(word.charAt(1), "")
+            return blankTest.push(slic + "quay");
+        } else if ((word.charAt(0)===consonant[i]) && (word.charAt(1)==="q") && (word.charAt(2)==="u")) {
+              var slices = word.replace(word.charAt(0), "").replace(word.charAt(1), "").replace(word.charAt(2), "");
+              return blankTest.push(slices + word.charAt(0) +"quay");
         } else if ((word.charAt(1)===vowels[j])&&(word.charAt(0)===consonant[i])){
               var sliced = word.replace(word.charAt(0), "");
               console.log(sliced);
@@ -32,19 +33,14 @@ var result = (function(sentence){
         };
       };
     });
-  sentence.forEach(function(word){
-    if ((word.charAt(0)==="a")||(word.charAt(0)==="u")||(word.charAt(0)==="i")||(word.charAt(0)==="o")||(word.charAt(0)==="e")) {
-        return blankTest.push(word + "ay");
-        // return $(word).append("ay");
-      }
-  });
+
   return blankTest;
 });
 
 $(function(){
   $("form#pigSentence").submit(function(event) {
     event.preventDefault();
-    var userInput = $("input#inputSentence").val().toLowerCase().split(" ");
+    var userInput = $("input#inputSentence").val().toLowerCase().replace(",", "").replace(".", "").split(" ");
     var final = result(userInput)
     console.log(userInput);
     console.log(final);
